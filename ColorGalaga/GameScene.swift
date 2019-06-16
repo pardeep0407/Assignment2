@@ -16,9 +16,13 @@ class GameScene: SKScene {
     
     // keep track of all the Node objects on the screen
     var bullets : [SKSpriteNode] = []
+    var enemies : [SKSpriteNode] = []
     
     override func didMove(to view: SKView) {
+        
+        //self.setupBackground()
         self.setupSpaceShip()
+        self.setupEnemies()
     }
     
     // variable to keep track of how much time has passed
@@ -35,7 +39,11 @@ class GameScene: SKScene {
             timeOfLastUpdate = currentTime
             // create a bullet
             self.createBullet()
+            self.moveEnemy()
         }
+        
+        
+        self.detectCollision()
         
     }
     
@@ -62,7 +70,14 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
     }
-
+    
+    func setupBackground(){
+        let background = SKSpriteNode.init(texture: SKTexture.init(imageNamed: "darkPurple.png"))
+        background.size = screenSize
+        //background.scaleMode = .AspectFill
+        background.position = CGPoint.init(x: 0, y: 0)
+        addChild(background)
+    }
     
     func setupSpaceShip(){
         spaceShip = SKSpriteNode.init(texture: SKTexture(imageNamed: "playerShip3_orange.png"))
@@ -71,6 +86,50 @@ class GameScene: SKScene {
         addChild(spaceShip)
     }
     
+    func setupEnemies(){
+        
+        let eCount : Int = 15
+        let space : CGFloat = 30.0
+        let height : CGFloat = 40.0
+        let width : CGFloat = 40.0
+        
+        var xPosition : CGFloat = width + space
+        var yPosition : CGFloat = screenSize.height - (height + space)
+        
+        
+        for eIndex in 0...eCount {
+            print(eIndex)
+            
+            let enemy = SKSpriteNode.init(texture: SKTexture(imageNamed: self.getEnemyImageName()))
+            enemy.size = CGSize.init(width: width, height: height)
+            enemy.zPosition = 1
+            enemy.position = CGPoint.init(x: xPosition, y: yPosition)
+            addChild(enemy)
+            enemies.append(enemy)
+            
+            xPosition += space + width
+            if xPosition >= screenSize.width - space{
+                yPosition -= height + space
+                xPosition = width + space
+            }
+        }
+    }
+    
+    func getEnemyImageName() -> String{
+        let enemyImageIndex = Int(CGFloat(arc4random_uniform(UInt32(3))))
+        
+        switch enemyImageIndex {
+        case 0:
+            return "enemyRed.png"
+        case 1:
+            return "enemyGreen.png"
+        case 2:
+            return "enemyBlue.png"
+        default:
+            return "enemyRed.png"
+        }
+        
+    }
     
     func createBullet() {
         
@@ -84,6 +143,7 @@ class GameScene: SKScene {
         
         let bulletDestination = CGPoint(x: spaceShip.position.x, y: frame.size.height + bullet.frame.size.height / 2)
         
+        //addChild(bullet)
         self.fireBullet(bullet: bullet, toDestination: bulletDestination,withDuration: 1.0,andSoundFileName: "")
         
         // add the bullet to the cats array
@@ -101,4 +161,53 @@ class GameScene: SKScene {
         addChild(bullet)
     }
     
+    func moveEnemy(){
+        if self.enemies.count > 0{
+            let enemyIndex = Int(CGFloat(arc4random_uniform(UInt32(self.enemies.count))))
+            let enemyDestination = CGPoint(x: spaceShip.position.x, y: 0.0)
+            let enemyAction = SKAction.move(to: enemyDestination, duration: 1.0)
+            self.enemies[enemyIndex].run(enemyAction)
+        }
+    }
+    
+    func detectCollision(){
+        
+            for (enemyIndex, enemy) in enemies.enumerated() {
+            
+                for (arrayIndex, bullet) in bullets.enumerated() {
+                    
+                    if bullet.intersects(enemy){
+                        
+                        enemy.removeFromParent()
+                        self.enemies.remove(at: enemyIndex)
+                        
+                        bullet.removeFromParent()
+                        self.bullets.remove(at: arrayIndex)
+                        
+                    }
+                    
+                    if (bullet.position.y >= self.size.height)  {
+                        //top of screen
+                        bullet.removeFromParent()
+                        self.bullets.remove(at: arrayIndex)
+                    }
+                    
+                }
+                
+                
+                if enemy.intersects(spaceShip){
+                    enemy.removeFromParent()
+                    self.enemies.remove(at: enemyIndex)
+                }
+                
+                if (enemy.position.y <= 0.0)  {
+                    //Bottom of screen
+                    enemy.removeFromParent()
+                    self.enemies.remove(at: enemyIndex)
+                }
+                
+            }
+            
+        
+    }
 }
