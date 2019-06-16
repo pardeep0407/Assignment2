@@ -16,6 +16,31 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.setupSpaceShip()
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let locationTouched = touches.first else {
+            return
+        }
+        
+        let mousePosition = locationTouched.location(in: self)
+        let moveAction = SKAction.moveTo(x: mousePosition.x, duration: 0.5)
+        spaceShip.run(moveAction)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let locationTouched = touches.first else {
+            return
+        }
+        
+        let mousePosition = locationTouched.location(in: self)
+        let moveAction = SKAction.moveTo(x: mousePosition.x, duration: 0.2)
+        spaceShip.run(moveAction)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
     }
     
     func setupSpaceShip(){
