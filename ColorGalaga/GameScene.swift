@@ -18,9 +18,14 @@ class GameScene: SKScene {
     var bullets : [SKSpriteNode] = []
     var enemies : [SKSpriteNode] = []
     
+    var lifes : [SKSpriteNode] = []
+    var numberOfLifes : Int = 3
+    var running = false
+    
     override func didMove(to view: SKView) {
         
         //self.setupBackground()
+        self.setupLifes()
         self.setupSpaceShip()
         self.setupEnemies()
     }
@@ -86,16 +91,30 @@ class GameScene: SKScene {
         addChild(spaceShip)
     }
     
+    func setupLifes(){
+        
+        var __x : CGFloat = 40.0
+        let space : CGFloat = 5.0
+        
+        for _ in 0..<numberOfLifes{
+            let lifeSpaceShip = SKSpriteNode.init(texture: SKTexture(imageNamed: "playerShip3_orange.png"))
+            lifeSpaceShip.size = CGSize.init(width: 30, height: 30)
+            lifeSpaceShip.position = CGPoint.init(x: __x, y: 35.0)
+            addChild(lifeSpaceShip)
+            self.lifes.append(lifeSpaceShip)
+            __x += 30.0 + space
+        }
+    }
+    
     func setupEnemies(){
         
         let eCount : Int = 15
         let space : CGFloat = 30.0
-        let height : CGFloat = 40.0
-        let width : CGFloat = 40.0
+        let height : CGFloat = 35.0
+        let width : CGFloat = 35.0
         
         var xPosition : CGFloat = width + space
         var yPosition : CGFloat = screenSize.height - (height + space)
-        
         
         for eIndex in 0...eCount {
             print(eIndex)
@@ -170,44 +189,88 @@ class GameScene: SKScene {
         }
     }
     
+    func createDamageAtLocation(location: CGPoint){
+        
+        var damageTexture : [SKTexture] = []
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip3_damage3.png"))
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip2_damage3.png"))
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip1_damage3.png"))
+        
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip3_damage2.png"))
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip2_damage2.png"))
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip1_damage2.png"))
+        
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip3_damage3.png"))
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip2_damage2.png"))
+        damageTexture.append(SKTexture.init(imageNamed: "playerShip1_damage1.png"))
+        
+        let damage = SKSpriteNode.init(imageNamed: "playerShip3_damage3.png")
+        damage.run(SKAction.sequence([SKAction.animate(with: damageTexture, timePerFrame: 0.1),SKAction.removeFromParent()])) {
+            
+        }
+        damage.position = location
+        damage.size = CGSize.init(width: 30.0, height: 30.0)
+        self.addChild(damage)
+        
+    }
+    
     func detectCollision(){
         
-            for (enemyIndex, enemy) in enemies.enumerated() {
+        for (enemyIndex, enemy) in enemies.enumerated() {
             
-                for (arrayIndex, bullet) in bullets.enumerated() {
+            for (arrayIndex, bullet) in bullets.enumerated() {
+                
+                //Detect Bullet collide with enemy
+                if bullet.intersects(enemy){
                     
-                    if bullet.intersects(enemy){
-                        
-                        enemy.removeFromParent()
-                        self.enemies.remove(at: enemyIndex)
-                        
-                        bullet.removeFromParent()
-                        self.bullets.remove(at: arrayIndex)
-                        
-                    }
                     
-                    if (bullet.position.y >= self.size.height)  {
-                        //top of screen
-                        bullet.removeFromParent()
-                        self.bullets.remove(at: arrayIndex)
-                    }
+                    self.createDamageAtLocation(location: enemy.position)
+                    enemy.removeFromParent()
+                    self.enemies.remove(at: enemyIndex)
+                    
+                    bullet.removeFromParent()
+                    self.bullets.remove(at: arrayIndex)
                     
                 }
                 
-                
-                if enemy.intersects(spaceShip){
-                    enemy.removeFromParent()
-                    self.enemies.remove(at: enemyIndex)
-                }
-                
-                if (enemy.position.y <= 0.0)  {
-                    //Bottom of screen
-                    enemy.removeFromParent()
-                    self.enemies.remove(at: enemyIndex)
+                if (bullet.position.y >= self.size.height)  {
+                    //top of screen
+                    bullet.removeFromParent()
+                    self.bullets.remove(at: arrayIndex)
                 }
                 
             }
             
+            
+            //Detect enemy colide with spaceship
+            if enemy.intersects(spaceShip){
+                
+                if running == false {
+                    if lifes.count > 0{
+                        let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.4)
+                        let fadeIn = SKAction.fadeAlpha(to: 1, duration: 0.4)
+                        
+                        running = true
+                        self.lifes.last?.removeFromParent()
+                        self.lifes.removeLast()
+                        spaceShip.run(SKAction.sequence([fadeOut,fadeIn,fadeOut,fadeIn,fadeOut,fadeIn])) {
+                            self.running = false
+                        };
+                    }
+                    
+                    enemy.removeFromParent()
+                    self.enemies.remove(at: enemyIndex)
+                }
+            }
+            
+            if (enemy.position.y <= 0.0)  {
+                //Bottom of screen
+                enemy.removeFromParent()
+                self.enemies.remove(at: enemyIndex)
+            }
+            
+        }
+        
         
     }
 }

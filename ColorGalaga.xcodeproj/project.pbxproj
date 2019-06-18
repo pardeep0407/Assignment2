@@ -19,6 +19,15 @@
 		E31A277C22AEBD24007F4DA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E31A277A22AEBD24007F4DA6 /* Main.storyboard */; };
 		E31A277E22AEBD26007F4DA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E31A277D22AEBD26007F4DA6 /* Assets.xcassets */; };
 		E31A278122AEBD26007F4DA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E31A277F22AEBD26007F4DA6 /* LaunchScreen.storyboard */; };
+		E31A278B22B943F3007F4DA6 /* playerShip1_damage1.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A278822B943F3007F4DA6 /* playerShip1_damage1.png */; };
+		E31A278C22B943F3007F4DA6 /* playerShip1_damage2.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A278922B943F3007F4DA6 /* playerShip1_damage2.png */; };
+		E31A278D22B943F3007F4DA6 /* playerShip1_damage3.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A278A22B943F3007F4DA6 /* playerShip1_damage3.png */; };
+		E31A279422B947AD007F4DA6 /* playerShip3_damage1.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A278E22B947AB007F4DA6 /* playerShip3_damage1.png */; };
+		E31A279522B947AD007F4DA6 /* playerShip3_damage2.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A278F22B947AB007F4DA6 /* playerShip3_damage2.png */; };
+		E31A279622B947AD007F4DA6 /* playerShip3_damage3.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A279022B947AB007F4DA6 /* playerShip3_damage3.png */; };
+		E31A279722B947AD007F4DA6 /* playerShip2_damage1.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A279122B947AC007F4DA6 /* playerShip2_damage1.png */; };
+		E31A279822B947AD007F4DA6 /* playerShip2_damage2.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A279222B947AC007F4DA6 /* playerShip2_damage2.png */; };
+		E31A279922B947AD007F4DA6 /* playerShip2_damage3.png in Resources */ = {isa = PBXBuildFile; fileRef = E31A279322B947AD007F4DA6 /* playerShip2_damage3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +45,15 @@
 		E31A277D22AEBD26007F4DA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E31A278022AEBD26007F4DA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E31A278222AEBD26007F4DA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E31A278822B943F3007F4DA6 /* playerShip1_damage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip1_damage1.png; sourceTree = "<group>"; };
+		E31A278922B943F3007F4DA6 /* playerShip1_damage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip1_damage2.png; sourceTree = "<group>"; };
+		E31A278A22B943F3007F4DA6 /* playerShip1_damage3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip1_damage3.png; sourceTree = "<group>"; };
+		E31A278E22B947AB007F4DA6 /* playerShip3_damage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip3_damage1.png; sourceTree = "<group>"; };
+		E31A278F22B947AB007F4DA6 /* playerShip3_damage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip3_damage2.png; sourceTree = "<group>"; };
+		E31A279022B947AB007F4DA6 /* playerShip3_damage3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip3_damage3.png; sourceTree = "<group>"; };
+		E31A279122B947AC007F4DA6 /* playerShip2_damage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip2_damage1.png; sourceTree = "<group>"; };
+		E31A279222B947AC007F4DA6 /* playerShip2_damage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip2_damage2.png; sourceTree = "<group>"; };
+		E31A279322B947AD007F4DA6 /* playerShip2_damage3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip2_damage3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +70,15 @@
 		32389C2422AF7D4400920207 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E31A278822B943F3007F4DA6 /* playerShip1_damage1.png */,
+				E31A278922B943F3007F4DA6 /* playerShip1_damage2.png */,
+				E31A278A22B943F3007F4DA6 /* playerShip1_damage3.png */,
+				E31A279122B947AC007F4DA6 /* playerShip2_damage1.png */,
+				E31A279222B947AC007F4DA6 /* playerShip2_damage2.png */,
+				E31A279322B947AD007F4DA6 /* playerShip2_damage3.png */,
+				E31A278E22B947AB007F4DA6 /* playerShip3_damage1.png */,
+				E31A278F22B947AB007F4DA6 /* playerShip3_damage2.png */,
+				E31A279022B947AB007F4DA6 /* playerShip3_damage3.png */,
 				32ED1D5722B2776F0077B58F /* enemyRed.png */,
 				32ED1D5522B277640077B58F /* enemyGreen.png */,
 				32ED1D5322B2775A0077B58F /* enemyBlue.png */,
@@ -152,14 +179,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				E31A277C22AEBD24007F4DA6 /* Main.storyboard in Resources */,
+				E31A278B22B943F3007F4DA6 /* playerShip1_damage1.png in Resources */,
+				E31A279522B947AD007F4DA6 /* playerShip3_damage2.png in Resources */,
 				32ED1D5422B2775A0077B58F /* enemyBlue.png in Resources */,
 				32ED1D5822B2776F0077B58F /* enemyRed.png in Resources */,
+				E31A279822B947AD007F4DA6 /* playerShip2_damage2.png in Resources */,
+				E31A279622B947AD007F4DA6 /* playerShip3_damage3.png in Resources */,
+				E31A278C22B943F3007F4DA6 /* playerShip1_damage2.png in Resources */,
 				32ED1D5622B277650077B58F /* enemyGreen.png in Resources */,
 				E31A277E22AEBD26007F4DA6 /* Assets.xcassets in Resources */,
 				32389C2C22AFD2B600920207 /* playerShip3_orange.png in Resources */,
 				E31A278122AEBD26007F4DA6 /* LaunchScreen.storyboard in Resources */,
+				E31A278D22B943F3007F4DA6 /* playerShip1_damage3.png in Resources */,
+				E31A279722B947AD007F4DA6 /* playerShip2_damage1.png in Resources */,
 				32ED1D5222B268980077B58F /* fire07.png in Resources */,
 				32389C2E22AFD5DA00920207 /* darkPurple.png in Resources */,
+				E31A279922B947AD007F4DA6 /* playerShip2_damage3.png in Resources */,
+				E31A279422B947AD007F4DA6 /* playerShip3_damage1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
