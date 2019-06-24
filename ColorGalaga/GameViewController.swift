@@ -2,7 +2,7 @@
 //  GameViewController.swift
 //  ColorGalaga
 //
-//  Created by Som on 10/06/19.
+//  Created by Pardeep on 10/06/19.
 //  Copyright © 2019 Pardeep. All rights reserved.
 //
 
@@ -10,25 +10,11 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
-
+class GameViewController: UIViewController, GameSceneDelegates {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // initialize the initial game scene
-        let scene = GameScene(size:view.frame.size)
-        let skView = view as! SKView
-        
-        // add some debug info to the screen
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        
-        // additional configuration options
-        
-        
-        // show the scene
-        skView.presentScene(scene)
-
+        self.setupSceneView()
     }
 
     override var shouldAutorotate: Bool {
@@ -45,5 +31,34 @@ class GameViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    
+    //MARK: - Setups
+    func setupSceneView(){
+       
+        // initialize the initial game scene
+        let GScene = GameScene(size:view.frame.size)
+        GScene.gameScenedelegate = self
+        let skView = view as! SKView
+        
+        // add some debug info to the screen
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        
+        // additional configuration options
+        
+        
+        // show the scene
+        skView.presentScene(GScene)
+    }
+    
+    //MARK: -
+    func didLoose() {
+        
+    }
+    
+    func didWin() {
+        
     }
 }

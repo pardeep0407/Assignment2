@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  ColorGalaga
 //
-//  Created by Som on 10/06/19.
+//  Created by Pardeep on 10/06/19.
 //  Copyright © 2019 Pardeep. All rights reserved.
 //
 

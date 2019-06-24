@@ -2,14 +2,21 @@
 //  GameScene.swift
 //  ColorGalaga
 //
-//  Created by Som on 10/06/19.
+//  Created by Pardeep on 10/06/19.
 //  Copyright © 2019 Pardeep. All rights reserved.
 //
 
 import SpriteKit
 import GameplayKit
 
+protocol GameSceneDelegates{
+    func didLoose()
+    func didWin()
+}
+
 class GameScene: SKScene {
+    
+    var gameScenedelegate : GameSceneDelegates?
     
     let screenSize = UIScreen.main.bounds.size
     var spaceShip = SKSpriteNode()
@@ -24,7 +31,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        //self.setupBackground()
+        self.setupBackground()
         self.setupLifes()
         self.setupSpaceShip()
         self.setupEnemies()
@@ -44,6 +51,7 @@ class GameScene: SKScene {
             timeOfLastUpdate = currentTime
             // create a bullet
             self.createBullet()
+            
             self.moveEnemy()
         }
         
@@ -78,9 +86,9 @@ class GameScene: SKScene {
     
     func setupBackground(){
         let background = SKSpriteNode.init(texture: SKTexture.init(imageNamed: "darkPurple.png"))
-        background.size = screenSize
-        //background.scaleMode = .AspectFill
-        background.position = CGPoint.init(x: 0, y: 0)
+        background.position = CGPoint(x:self.size.width/2,
+                                  y:self.size.height/2)
+        background.zPosition = -1
         addChild(background)
     }
     
@@ -231,6 +239,11 @@ class GameScene: SKScene {
                     bullet.removeFromParent()
                     self.bullets.remove(at: arrayIndex)
                     
+                    if self.enemies.count == 0{
+                        self.youWin()
+                        return
+                    }
+                    
                 }
                 
                 if (bullet.position.y >= self.size.height)  {
@@ -253,24 +266,60 @@ class GameScene: SKScene {
                         running = true
                         self.lifes.last?.removeFromParent()
                         self.lifes.removeLast()
-                        spaceShip.run(SKAction.sequence([fadeOut,fadeIn,fadeOut,fadeIn,fadeOut,fadeIn])) {
-                            self.running = false
-                        };
+                        
+                        if self.lifes.count == 0{
+                            self.spaceShip.removeFromParent()
+                            self.createDamageAtLocation(location: spaceShip.position)
+                            self.youLoose()
+                        }else{
+                            spaceShip.run(SKAction.sequence([fadeOut,fadeIn,fadeOut,fadeIn,fadeOut,fadeIn])) {
+                                self.running = false
+                            };
+                        }
+                        
+                    }else{//Loose
+                        self.youLoose()
                     }
                     
+                    self.createDamageAtLocation(location: enemy.position)
                     enemy.removeFromParent()
                     self.enemies.remove(at: enemyIndex)
+                    
+                    if self.enemies.count == 0{
+                        self.youWin()
+                        return
+                    }
                 }
             }
             
             if (enemy.position.y <= 0.0)  {
                 //Bottom of screen
+                self.createDamageAtLocation(location: enemy.position)
                 enemy.removeFromParent()
                 self.enemies.remove(at: enemyIndex)
+                
+                if self.enemies.count == 0{
+                    self.youWin()
+                }
             }
             
         }
         
         
+    }
+    
+    func youWin(){
+        let winScene = WinScene(size: self.size)
+        winScene.scaleMode = self.scaleMode
+        let transitionEffect = SKTransition.fade(withDuration: 2)
+        self.view?.presentScene(winScene, transition: transitionEffect)
+    }
+    
+    func youLoose(){
+        
+        let loseScene = GameOverScene(size: self.size)
+        loseScene.scaleMode = self.scaleMode
+        let transitionEffect = SKTransition.fade(withDuration: 1)
+        self.view?.presentScene(loseScene, transition: transitionEffect)
     }
 }
